@@ -44,7 +44,7 @@ for i in range(30):
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
     temperature = random.randint(20, 40)
-    location = "Maua"
+    location = "West Europe"
     sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
     val = (temperature, location, max_mem)
     start_insert = time.time()
