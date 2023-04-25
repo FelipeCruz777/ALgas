@@ -1,8 +1,7 @@
-import matplotlib.pyplot as plt
-from sys import getsizeof
 import time
 import random
 import pyodbc
+import geocoder
 
 conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serer-cruz.database.windows.net,1433;Database=algas-cruz;Uid=adm;Pwd=Urubu100@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 conn = pyodbc.connect(conn_string)
@@ -43,18 +42,13 @@ for n in sizes:
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
     temperature = random.randint(20, 40)
-    sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
-    val = (temperature, 'Localização da máquina', max_mem)
+    g = geocoder.ip('me')
+    location = g.latlng
+    sql = "INSERT INTO temperatura (temperatura, latitude, longitude, memoria) VALUES (?, ?, ?, ?)"
+    val = (temperature, location[0], location[1], max_mem)
     cursor.execute(sql, val)
     cursor.commit()
     stop = time.time()
     print(f'Temperatura {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l2.append(stop - start)
 cursor.close()
-
-plt.plot(l1,'x--', label="Without Memoryview")
-plt.plot(l2,'o--', label="With Memoryview")
-plt.xlabel('Size of Bytearray')
-plt.ylabel('Time (S)')
-plt.legend()
-plt.show()
