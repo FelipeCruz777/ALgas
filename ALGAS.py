@@ -2,6 +2,8 @@ import time
 import random
 import pyodbc
 import geocoder
+from sys import getsizeof
+
 
 conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serer-cruz.database.windows.net,1433;Database=algas-cruz;Uid=adm;Pwd=Urubu100@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 conn = pyodbc.connect(conn_string)
