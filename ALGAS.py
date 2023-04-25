@@ -3,7 +3,7 @@ import random
 import pyodbc
 from sys import getsizeof
 
-conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serer-cruz.database.windows.net,1433;Database=algas-cruz;Uid=adm;Pwd=Urubu100@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+conn_string = 'Driver={ODBC Driver 17 for SQL Server};Server=tcp:serer-cruz.database.windows.net,1433;Database=algas-cruz;Uid=adm;Pwd=Urubu100@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 conn = pyodbc.connect(conn_string)
 cursor = conn.cursor()
 
