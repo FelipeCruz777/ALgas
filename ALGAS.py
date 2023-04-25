@@ -1,16 +1,13 @@
 import matplotlib.pyplot as plt
 from sys import getsizeof
 import time
-import mysql.connector
 import random
+import pyodbc
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="myusername",
-    password="mypassword",
-    database="mydatabase"
-)
-mycursor = mydb.cursor()
+conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serer-cruz.database.windows.net,1433;Database=algas-cruz;Uid=adm;Pwd=Urubu100@;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
+conn = pyodbc.connect(conn_string)
+cursor = conn.cursor()
+
 
 sizes = range(200000, 200001, 10000) # aumentando o salto para 10000
 l1 = []
@@ -47,11 +44,12 @@ for n in sizes:
     temperature = random.randint(20, 40) # gerando uma temperatura aleatória
     sql = "INSERT INTO temperatura (temperatura, regiao) VALUES (%s, %s)"
     val = (temperature, 'Localização da máquina')
-    mycursor.execute(sql, val)
-    mydb.commit()
+    cursor.execute(sql, val)
+    cursor.commit()
     stop = time.time()
     print(f'Temperatura {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l2.append(stop - start)
+cursor.close()
 
 plt.plot(l1,'x--', label="Without Memoryview")
 plt.plot(l2,'o--', label="With Memoryview")
