@@ -8,8 +8,9 @@ conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:serer-cruz.data
 conn = pyodbc.connect(conn_string)
 cursor = conn.cursor()
 
+cursor.execute("IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'temperatura' AND COLUMN_NAME = 'memoria') ALTER TABLE temperatura ADD memoria INT")
 
-sizes = range(200000, 200001, 10000) # aumentando o salto para 10000
+sizes = range(200000, 200001, 10000)
 l1 = []
 
 for n in sizes:
@@ -41,9 +42,9 @@ for n in sizes:
         elif len(b) == 1:
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
-    temperature = random.randint(20, 40) # gerando uma temperatura aleatória
-    sql = "INSERT INTO temperatura (temperatura, regiao) VALUES (%s, %s)"
-    val = (temperature, 'Localização da máquina')
+    temperature = random.randint(20, 40)
+    sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
+    val = (temperature, 'Localização da máquina', max_mem)
     cursor.execute(sql, val)
     cursor.commit()
     stop = time.time()
