@@ -25,8 +25,7 @@ for n in sizes:
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
     stop = time.time()
-    #print(f'Valor {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
-     print('Valor ' + str(n) + ' ' + str(stop-start) + ' - Max mem ' + str(max_mem/10**3) + ' KB - Min mem ' + str(min_mem) + ' B')
+    print(f'Valor {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l1.append(stop - start)
 
 l2 = []
