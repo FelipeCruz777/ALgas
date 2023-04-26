@@ -14,21 +14,6 @@ sizes = range(100, 130, 5)
 l1 = []
 l2 = []
 
-for n in sizes:
-    data = 'transaction01' * n
-    b = data.encode()
-    start = time.time()
-    max_mem = 0
-    min_mem = 0
-    while b:
-        if n == len(b):
-            max_mem = getsizeof(b) - getsizeof(b'')
-        elif len(b) == 1:
-            min_mem = getsizeof(b) - getsizeof(b'')
-        b = b[1:]
-    stop = time.time()
-    print(f'Valor {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
-    l1.append(stop - start)
 
 for i in range(30):
     n = random.choice(sizes)
@@ -43,7 +28,7 @@ for i in range(30):
         elif len(b) == 1:
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
-    temperature = random.randint(20, 40)
+    temperature = random.randint(20, 30)
     location = "Brazil"
     sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
     val = (temperature, location, max_mem)
@@ -57,4 +42,9 @@ for i in range(30):
 cursor.close()
 
 plt.plot(sizes, l1, label='Loop 1')
-plt.plot(sizes, l2[:len(sizes)], label='Loop 2') # adicionado [:len(sizes)] para pegar os
+plt.plot(sizes, l2, label='Loop 2')
+plt.xlabel('Tamanho da entrada (bytes)')
+plt.ylabel('Tempo de execução (s)')
+plt.title('Gráfico de tempo de execução')
+plt.legend()
+plt.show()
