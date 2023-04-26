@@ -14,6 +14,21 @@ sizes = range(100, 130, 5)
 l1 = []
 l2 = []
 
+for n in sizes:
+    data = 'transaction01' * n
+    b = data.encode()
+    start = time.time()
+    max_mem = 0
+    min_mem = 0
+    while b:
+        if n == len(b):
+            max_mem = getsizeof(b) - getsizeof(b'')
+        elif len(b) == 1:
+            min_mem = getsizeof(b) - getsizeof(b'')
+        b = b[1:]
+    stop = time.time()
+    print(f'Valor {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
+    l1.append(stop - start)
 
 for i in range(30):
     n = random.choice(sizes)
