@@ -30,8 +30,7 @@ for n in sizes:
     print(f'Valor {n} {stop-start} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l1.append(stop - start)
 
-for i in range(30):
-    n = random.choice(sizes)
+for n in sizes:
     data = b'x' * n
     b = memoryview(data)
     start = time.time()
@@ -51,7 +50,7 @@ for i in range(30):
     cursor.execute(sql, val)
     cursor.commit()
     stop_insert = time.time()
-    print(f'Temperatura {n} {stop_insert-start_insert} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
+    print(f'Temperatura {temperature} {stop_insert-start_insert} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l2.append(stop_insert - start_insert)
     
 cursor.close()
