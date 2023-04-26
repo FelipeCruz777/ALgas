@@ -9,7 +9,7 @@ cursor = conn.cursor()
 
 cursor.execute("IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'temperatura' AND COLUMN_NAME = 'memoria') ALTER TABLE temperatura ADD memoria INT")
 
-sizes = range(200000, 200300, 10000)
+sizes = range(10, 13, 1)
 l1 = []
 
 for n in sizes:
@@ -43,7 +43,7 @@ for i in range(30):
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
     temperature = random.randint(20, 40)
-    location = "West Europe"
+    location = "Brazil"
     sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
     val = (temperature, location, max_mem)
     start_insert = time.time()
