@@ -45,7 +45,7 @@ for i in range(30):
         b = b[1:]
     temperature = random.randint(20, 40)
     location = "Brazil"
-    sql = "INSERT INTO temperatura (temperatura, location, memoria) VALUES (?, ?, ?)"
+    sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
     val = (temperature, location, max_mem)
     start_insert = time.time()
     cursor.execute(sql, val)
