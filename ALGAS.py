@@ -57,9 +57,4 @@ for i in range(30):
 cursor.close()
 
 plt.plot(sizes, l1, label='Loop 1')
-plt.plot(sizes, l2, label='Loop 2')
-plt.xlabel('Tamanho da entrada (bytes)')
-plt.ylabel('Tempo de execução (s)')
-plt.title('Gráfico de tempo de execução')
-plt.legend()
-plt.show()
+plt.plot(sizes, l2[:len(sizes)], label='Loop 2') # adicionado [:len(sizes)] para pegar os
