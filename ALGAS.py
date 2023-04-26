@@ -10,7 +10,7 @@ cursor = conn.cursor()
 
 cursor.execute("IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'temperatura' AND COLUMN_NAME = 'memoria') ALTER TABLE temperatura ADD memoria INT")
 
-sizes = range(200000, 200300, 10000)
+sizes = range(100, 130, 5)
 l1 = []
 l2 = []
 
