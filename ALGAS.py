@@ -10,7 +10,7 @@ conn = pyodbc.connect(conn_string)
 cursor = conn.cursor()
 
 
-sizes = range(100, 130, 5)
+sizes = range(1, 131, 1)
 l1 = []
 l2 = []
 
