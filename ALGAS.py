@@ -3,12 +3,12 @@ import random
 import pyodbc
 from sys import getsizeof
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 conn_string = 'Driver={ODBC Driver 18 for SQL Server};Server=tcp:wordserver.database.windows.net,1433;Database=word-database;Uid=urubu100;Pwd=14052002Kb4_;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;'
 conn = pyodbc.connect(conn_string)
 cursor = conn.cursor()
 
-cursor.execute("IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'temperatura' AND COLUMN_NAME = 'memoria') ALTER TABLE temperatura ADD memoria INT")
 
 sizes = range(100, 130, 5)
 l1 = []
@@ -43,16 +43,17 @@ for n in sizes:
             min_mem = getsizeof(b) - getsizeof(b'')
         b = b[1:]
     temperature = random.randint(20, 30)
-    location = "Brazil"
-    sql = "INSERT INTO temperatura (temperatura, regiao, memoria) VALUES (?, ?, ?)"
-    val = (temperature, location, max_mem)
+    capture_date = datetime.now()
+    sensor_name = 'thd11'
+    sql = "INSERT INTO SensorData (SensorName, SensorValue, CaptureDate) VALUES (?, ?, ?)"
+    val = (sensor_name, temperature, capture_date)
     start_insert = time.time()
     cursor.execute(sql, val)
     cursor.commit()
     stop_insert = time.time()
     print(f'Temperatura {temperature} {stop_insert-start_insert} - Max mem {max_mem/10**3} KB - Min mem {min_mem} B')
     l2.append(stop_insert - start_insert)
-    
+
 cursor.close()
 
 plt.plot(sizes, l1, label='Loop 1')
