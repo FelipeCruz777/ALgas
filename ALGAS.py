@@ -44,7 +44,7 @@ for n in sizes:
         b = b[1:]
     temperature = random.randint(20, 30)
     capture_date = datetime.now()
-    sensor_name = 'thd11'
+    sensor_name = 'temperatura'
     sql = "INSERT INTO SensorData (SensorName, SensorValue, CaptureDate) VALUES (?, ?, ?)"
     val = (sensor_name, temperature, capture_date)
     start_insert = time.time()
